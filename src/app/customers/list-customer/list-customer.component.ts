@@ -1,51 +1,79 @@
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import { CustomerService } from '../../services/customer.service';
+import { Customer } from 'src/app/models/customer.model';
+import {Subscription} from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { ParamMap, Router } from '@angular/router';
 
-import {AfterViewInit, Component, ViewChild, OnInit} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+
+
 
 @Component({
   selector: 'app-list-customer',
   templateUrl: './list-customer.component.html',
   styleUrls: ['./list-customer.component.scss']
 })
-export class ListCustomerComponent  implements AfterViewInit  {
+export class ListCustomerComponent  implements OnInit  {
+  @Input() data: any;
 
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','email', 'address','department'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  public dataSource = new MatTableDataSource<any>()
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  public displayedColumns: string[] = ['firstName', 'lastName', 'emailAddress','phoneNumber','dob','department', 'actions'];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+
+
+
+
+  customerResult: any;
+  customerList: any;
+  customer: Customer = {} as Customer;
+
+  constructor(private customerService: CustomerService, private router : Router){}
+
+
+  ngOnInit(): void{
+
+    if (this.data) {
+      this.dataSource.data = this.data.partners;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+    }
+
+  this.getCustomerList();
   }
 
+
+  getCustomerList(){
+    this.customerService.getCustomers().subscribe((data:any[])=>{
+      this.customerResult = data;
+
+      this.customerList = this.customerResult.results;
+      this.dataSource =this.customerList;
+      this.dataSource.sort  = this.customerList;
+
+      console.log(this.customerList);
+    });
+
+  }
+
+  viewCustomer() {
+
+    this.router.navigate(['/customers/edit/:id'])
+
+
+  }
+
+
+
+
+
+
+
+
 }
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-  email: string;
-  address: string;
-  department: string;
-
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' , email:'aa',address:'abcs', department:'computer science'},
-  {position: 2, name: 'Hyd', weight: 1.0079, symbol: 'H' , email:'aa',address:'abcs', department:'computer science'},
-  {position: 3, name: 'Hydrog', weight: 1.0079, symbol: 'H' , email:'aa',address:'abcs', department:'computer science'},
-  {position: 4, name: 'ogen', weight: 1.0079, symbol: 'H' , email:'aa',address:'abcs', department:'computer science'},
-  {position: 5, name: 'Hydrogen', weight: 1.0079, symbol: 'H' , email:'aa',address:'abcs', department:'computer science'},
-  {position: 6, name: 'Hydrogen', weight: 1.0079, symbol: 'H' , email:'aa',address:'abcs', department:'computer science'},
-  {position: 7, name: 'Hydrogen', weight: 1.0079, symbol: 'H' , email:'aa',address:'abcs', department:'computer science'},
-  {position: 8, name: 'Hydrogen', weight: 1.0079, symbol: 'H' , email:'aa',address:'abcs', department:'computer science'},
-  {position: 9, name: 'Hgen', weight: 1.0079, symbol: 'H' , email:'aa',address:'abcs', department:'computer science'},
-
-  {position: 10, name: 'Hydrogen', weight: 1.0079, symbol: 'H' , email:'aa',address:'abcs', department:'computer science'},
-]
-
-
-

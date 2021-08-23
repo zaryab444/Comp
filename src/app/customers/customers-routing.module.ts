@@ -7,6 +7,7 @@ import { DeleteCustomerComponent } from './delete-customer/delete-customer.compo
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 import { ListCustomerComponent } from './list-customer/list-customer.component';
 import { SearchCustomerComponent } from './search-customer/search-customer.component';
+import { ViewCustomerComponent } from './view-customer/view-customer.component';
 
 const routes: Routes = [
 
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'add', component: AddCustomerComponent },
   { path: 'edit/:id', component: EditCustomerComponent },
   { path: 'delete/:id', component: DeleteCustomerComponent },
-  { path: 'search', component: SearchCustomerComponent }
+  { path: 'search', component: SearchCustomerComponent },
+  { path: 'view/:id', component: ViewCustomerComponent}
 
 
 

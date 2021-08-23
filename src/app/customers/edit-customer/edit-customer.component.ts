@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
+import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
   selector: 'app-edit-customer',
@@ -7,9 +12,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditCustomerComponent implements OnInit {
 
-  constructor() { }
 
+
+
+
+
+
+
+
+  constructor() { }
   ngOnInit(): void {
+
+
+
+
+
   }
+
+
 
 }

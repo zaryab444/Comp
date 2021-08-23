@@ -12,20 +12,27 @@ import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 import { DeleteCustomerComponent } from './delete-customer/delete-customer.component';
 import { SearchCustomerComponent } from './search-customer/search-customer.component';
+import { MatIconModule } from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+import { ViewCustomerComponent } from './view-customer/view-customer.component';
+
+
 
 
 
 
 
 @NgModule({
-  declarations: [CustomersComponent, ListCustomerComponent, AddCustomerComponent, EditCustomerComponent, DeleteCustomerComponent, SearchCustomerComponent],
+  declarations: [CustomersComponent, ListCustomerComponent, AddCustomerComponent, EditCustomerComponent, DeleteCustomerComponent, SearchCustomerComponent, ViewCustomerComponent],
   imports: [
     CommonModule,
     CustomersRoutingModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule
 
   ]
 })
